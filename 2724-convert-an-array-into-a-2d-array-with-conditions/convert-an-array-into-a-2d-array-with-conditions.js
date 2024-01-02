@@ -2,25 +2,29 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var findMatrix = function(nums) {
-    const frequencyMap = new Map();
-    let outer = []
-    nums.forEach(element => {
-    frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
-  });
-
-    console.log(frequencyMap)
-    while(frequencyMap.size){
-        let inner = []
-        for (const [key, value] of frequencyMap.entries()) {
-        inner.push(key)
-        if(value === 1 ) {
-            frequencyMap.delete(key)
-        }
-        else frequencyMap.set(key,value-1)
-}
-    outer.push(inner)
+var findMatrix = function(v) {
+    let um = new Map();
+    for (let i of v) {
+        um.set(i, (um.get(i) || 0) + 1);
     }
-    
-    return outer
+
+    let ans = [];
+    while (um.size > 0) {
+        let temp = [];
+        let toErase = [];
+        for (let [f, s] of um) {
+            temp.push(f);
+            s--;
+            if (s === 0) {
+                toErase.push(f);
+            }
+            um.set(f, s);
+        }
+        ans.push(temp);
+        for (let i of toErase) {
+            um.delete(i);
+        }
+    }
+    return ans;
 };
+
