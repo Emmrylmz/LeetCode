@@ -10,7 +10,7 @@ var merge = function (intervals) {
     let out = []
     while (next < sorted.length) {
         if (current_state[1] >= sorted[next][0]) {
-            current_state = [Math.min(current_state[0], sorted[next][0]), Math.max(sorted[next][1], current_state[1])]
+            current_state = [current_state[0], Math.max(sorted[next][1], current_state[1])]
             next === sorted.length - 1 && out.push(current_state)
         } else {
             console.log(current_state)
